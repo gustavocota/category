@@ -33,7 +33,7 @@ int main(int argc, char* argv[]){
 
 	auto square = [](int value)->int{return value*value;};
 
-	auto x = Compose(square,Id);
+	std::function<int(int)> x(Compose(square,Id));
 	std::cout<<<<std::endl;
 
 	return 0;
