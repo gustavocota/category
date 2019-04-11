@@ -15,6 +15,8 @@ auto Square = [](auto value){return value*value;};
 auto Compose = [](auto secondFunction, auto firstFunction){return [secondFunction,firstFunction](auto value){return secondFunction(firstFunction(value));};};
 auto Twice = [](auto value){return 2*value;};
 
+auto Memoize = [](auto function){return [function](auto value){static std::map<>
+
 }
 
 int main(int argc, char* argv[]){
@@ -30,6 +32,12 @@ int main(int argc, char* argv[]){
 	std::cout<<twiceOfSquare(5)<<std::endl;
 	std::cout<<squareOfTwice(5)<<std::endl;
 
+//	compose other functions
+//	create a maybe monad
+//	create other monads
+//
+//	abstract operations from successor to tetration
+//	use that to define algorithms for calculating any real number and measure its algorithmic complexity, lenght and other properties that algorithms might have
 
 	return 0;
 }
