@@ -7,6 +7,7 @@
 #include <iostream>
 #include <functional>
 #include <map>
+#include <unistd.h>
 
 namespace Cat{
 
@@ -17,7 +18,7 @@ auto Twice = [](auto value){return 2*value;};
 
 auto Memoize = [](auto function){
 	return [function](auto value){
-		static std::map<int,int> results;
+		static std::map<long,long> results;
 		auto temp=0;
 		if(results.find(value) != results.end()){
 			std::cout<<"value found "<<value<<std::endl;
@@ -25,7 +26,8 @@ auto Memoize = [](auto function){
 		}
 		else {
 			std::cout<<"value not found "<<value<<std::endl;
-			temp = function(value); results[temp];
+			usleep(1000000);
+			temp = function(value); results[value] = temp;
 		}
 		return temp;
 	};
@@ -50,6 +52,9 @@ int main(int argc, char* argv[]){
 	std::cout<<sqr(200000)<<std::endl;
 	std::cout<<sqr(300000)<<std::endl;
 	std::cout<<sqr(100000)<<std::endl;
+	std::cout<<sqr(300000)<<std::endl;
+	std::cout<<sqr(150000)<<std::endl;
+	std::cout<<sqr(300000)<<std::endl;
 
 
 //	compose other functions
