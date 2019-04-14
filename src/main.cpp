@@ -4,58 +4,15 @@
  *  Created on: Apr 3, 2019
  *      Author: root
  */
-#include <iostream>
-#include <functional>
-#include <map>
-#include <unistd.h>
-
-namespace Cat{
-
-auto Id = [](auto value){return value;};
-auto Square = [](auto value){return value*value;};
-auto Compose = [](auto secondFunction, auto firstFunction){return [secondFunction,firstFunction](auto value){return secondFunction(firstFunction(value));};};
-auto Twice = [](auto value){return 2*value;};
-
-auto Memoize = [](auto function){
-	return [function](auto value){
-		static std::map<long,long> results;
-		auto temp=0;
-		if(results.find(value) != results.end()){
-			std::cout<<"value found "<<value<<std::endl;
-			temp = results[value];
-		}
-		else {
-			std::cout<<"value not found "<<value<<std::endl;
-			usleep(1000000);
-			temp = function(value); results[value] = temp;
-		}
-		return temp;
-	};
-};
-
-}
+#include "functions.h"
+#include "tests.h"
 
 int main(int argc, char* argv[]){
-	using namespace Cat;
 
-	int c=0;
-	std::string cosa("this is my string");
-	std::cout<<Id(c)<<std::endl;
-	std::cout<<Id(cosa)<<std::endl;
-	std::cout<<Square(.866025404)<<std::endl;
-	auto twiceOfSquare = Compose(Twice, Square);
-	auto squareOfTwice = Compose(Square, Twice);
-	std::cout<<twiceOfSquare(5)<<std::endl;
-	std::cout<<squareOfTwice(5)<<std::endl;
-	auto sqr = Memoize(Square);
-	std::cout<<sqr(100000)<<std::endl;
-	std::cout<<sqr(200000)<<std::endl;
-	std::cout<<sqr(300000)<<std::endl;
-	std::cout<<sqr(100000)<<std::endl;
-	std::cout<<sqr(300000)<<std::endl;
-	std::cout<<sqr(150000)<<std::endl;
-	std::cout<<sqr(300000)<<std::endl;
-
+	Test::TestId();
+	Test::TestSquare();
+	Test::TestCompose();
+	Test::TestMemoize();
 
 //	compose other functions
 //	create a maybe monad
